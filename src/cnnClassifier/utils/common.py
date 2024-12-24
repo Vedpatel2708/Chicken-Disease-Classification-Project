@@ -10,39 +10,37 @@ from pathlib import Path
 from typing import Any
 import base64
 
-
-
 import yaml
 from pathlib import Path
 
-from box import Box
-import yaml
-from pathlib import Path
-
-def read_yaml(path_to_yaml: Path):
+def read_yaml(path_to_yaml):
     try:
+        path_to_yaml = Path(path_to_yaml)  # Convert to Path object
         print(f"Reading YAML file from: {path_to_yaml.resolve()}")
         with open(path_to_yaml, 'r') as file:
             content = yaml.safe_load(file)
             print(f"Loaded content: {content}")
-            if not content:
-                raise ValueError(f"YAML file is empty: {path_to_yaml}")
-            return Box(content)  # Convert dictionary to object
+            return content
     except FileNotFoundError:
         raise FileNotFoundError(f"YAML file not found: {path_to_yaml}")
     except yaml.YAMLError as e:
         raise ValueError(f"Error parsing YAML file: {e}")
 
 
+
+
+
     
 
 
 @ensure_annotations
-def create_directories(path_to_directories: list):
+def create_directories(path_to_directories: list, verbose=True):
     print(f"Directories to create: {path_to_directories}")
     for path in path_to_directories:
         os.makedirs(path, exist_ok=True)
         print(f"Created directory: {path}")
+        if verbose:
+            logger.info(f"created directory at: {path}")
 
 
 
