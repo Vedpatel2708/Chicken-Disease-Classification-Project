@@ -5,6 +5,10 @@ from cnnClassifier import logger
 from cnnClassifier.utils.common import get_size
 from cnnClassifier.entity.config_entity import DataIngestionConfig
 from pathlib import Path
+import logging
+
+# Configure logging if not already done in the main script
+logging.basicConfig(level=logging.INFO, format='[%(asctime)s: %(levelname)s: %(message)s]')
 
 
 class DataIngestion:
@@ -35,3 +39,8 @@ class DataIngestion:
         os.makedirs(unzip_path, exist_ok=True)
         with zipfile.ZipFile(self.config.local_data_file, 'r') as zip_ref:
             zip_ref.extractall(unzip_path)
+
+    
+
+
+    
